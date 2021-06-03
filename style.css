@@ -1,0 +1,111 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75)), url('./img/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#container {
+  padding: 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.navbar {
+  background: rgba(0, 0, 0, 0.75) !important;
+}
+
+.navbar-nav {
+  margin: 0 auto;
+}
+
+a, #search, p, span, h2, h3, h4, h5{
+  color: white !important;
+}
+
+.dropdown-menu {
+  background: rgba(0, 0, 0, 0.75) !important;
+}
+
+.navbar-toggler-icon {
+  border-radius: 15%;
+  border: solid white;
+  background-color: white !important;
+}
+
+.aboutUs {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  align-content: center; 
+  text-align: center;
+  border-radius: 5%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.movie-prod-logo {
+  width: 100%;
+}
+
+.producerImg {
+  width: 70px;
+}
+
+.actorPicture {
+  width: 100%;
+}
+
+.relatedImg {
+  width: 100%;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col, [class*="col-"] {
+  padding-right: 2%;
+  padding-left: 2%;
+  text-align: center;
+}
+
+.relatedMovie {
+  text-align: center;
+  font-weight: bolder;
+}
+
+.movieImg {
+  width: 100%;
+}
+
+.actorPageImage, .moviePageImage, #movie-backdrop, .searchImage, .selfImage {
+  width: 100%;
+  border-radius: 10%;
+}
+
+.AllImages, .img-thumbnail, .selfImage {
+  border: solid #28a745 4px !important;
+  border-radius: 10% !important;
+}
+
+.actorDiv, .movieDiv {
+  padding-bottom: 3%;
+}
+
+#movie-overview, #actorBiography {
+  text-align: left;
+}
+
+.contactMe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 2em;
+}
