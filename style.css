@@ -22,7 +22,7 @@ body {
   margin: 0 auto;
 }
 
-a, #search, p, span, h1, h2, h3, h4, h5{
+a, #search, p, span, h2, h3, h4, h5{
   color: white !important;
 }
 
@@ -47,20 +47,8 @@ a, #search, p, span, h1, h2, h3, h4, h5{
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.movie-prod-logo {
-  width: 100%;
-}
-
 .producerImg {
   width: 70px;
-}
-
-.actorPicture {
-  width: 100%;
-}
-
-.relatedImg {
-  width: 100%;
 }
 
 .no-gutters {
@@ -79,33 +67,54 @@ a, #search, p, span, h1, h2, h3, h4, h5{
   font-weight: bolder;
 }
 
-.movieImg {
+.movieImg, .relatedImg, .actorPicture, .movie-prod-logo{
   width: 100%;
 }
 
-.actorPageImage, .moviePageImage, #movie-backdrop, .searchImage, .selfImage {
+.actorPageImage, .moviePageImage, #movie-backdrop, .searchImage {
   width: 100%;
   border-radius: 10%;
 }
 
-.AllImages, .img-thumbnail, .selfImage {
+@media screen and (max-width: 450px){
+  .searchImage, .movieImg, .relatedImg, .actorPicture, .movie-prod-logo, .AllImages{
+    width: 85% !important;
+  }
+  .moviePageImage, .actorPageImage {
+    width: 58.5% !important;
+  }
+  #movie-backdrop {
+    width: 50% !important;
+  }
+  .producerImg {
+    width: 60px;
+  }
+  a, #search, p, span, h2, h3, h4, h5{
+    font-size: 85%;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .moviePageImage, .actorPageImage {
+    width: 74%;
+  }
+  .actorPicture {
+    width: 85% !important;
+  }
+  #movie-backdrop {
+    width: 70% !important;
+  }
+}
+
+.AllImages, .img-thumbnail {
   border: solid #28a745 4px !important;
   border-radius: 10% !important;
 }
 
-.actorDiv, .movieDiv {
+#actorDiv, .movieDiv {
   padding-bottom: 3%;
 }
 
 #movie-overview, #actorBiography {
   text-align: left;
-}
-
-.contactMe {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  font-size: 2em;
 }

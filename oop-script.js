@@ -94,8 +94,14 @@ class HomePage {
     const div = document.createElement("div");
     div.classList.add('row', 'justify-content-center');
     movies.forEach(movie => {
+
+      let windowWidth = '';
+      if(window.innerWidth > 991) windowWidth = 'col-3';
+      else if(window.innerWidth > 450) windowWidth = 'col-6';
+      else windowWidth = 'col-12';
+
       const movieDiv = document.createElement("div");
-      movieDiv.classList.add('col-3', 'movieDiv');
+      movieDiv.classList.add(windowWidth, 'movieDiv');
       
       const imageDiv = document.createElement("div");
       const movieImage = document.createElement("img");
@@ -126,11 +132,20 @@ class HomePage {
     // for(let i = 0; i < actors.le)
     const div = document.createElement('div');
     div.classList.add('row', 'justify-content-center');
+
     actors.forEach(actor => {
+      let imgSrc = '', windowWidth = '';
+      if(actor.profile_path === null) imgSrc = './img/defaultPortrait.jpg';
+      else imgSrc = Movie.getImage(actor.profile_path);
+
+      if(window.innerWidth > 991) windowWidth = 'col-3';
+      else if(window.innerWidth > 450) windowWidth = 'col-6';
+      else windowWidth = 'col-12';
+
       div.innerHTML += `
-        <div class="col-3 actorDiv" style="cursor:pointer">
+        <div class=${windowWidth} id="actorDiv" style="cursor:pointer">
           <div>
-            <img class="actorPageImage AllImages" src=${Movie.getImage(actor.profile_path)}>
+            <img class="actorPageImage AllImages" src=${imgSrc}>
           </div>
           <div>
             <h5 class="actorDivName">${actor.name}</h5>
@@ -141,7 +156,7 @@ class HomePage {
     this.container.append(div);
 
     const actorEventListener = function(){
-      const actorList = document.getElementsByClassName('actorDiv');
+      const actorList = document.getElementById('actorDiv');
       for(let i = 0; i < actorList.length; i++){
         actorList[i].addEventListener('click', function(){
           APIService.fetchActorInfo(actors[i].id);
@@ -190,13 +205,16 @@ class MovieSection {
       }
     }
 
+    let imgSrc = '';
+    if(movie.posterPath === null) imgSrc = './img/defaultPortrait.jpg';
+    else imgSrc = Movie.getImage(movie.posterPath);
 
     MoviePage.container.innerHTML = `
     <div class="row">
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-4">
-            <img id="movie-backdrop" class="AllImages" src=${Movie.getImage(movie.posterPath)}> 
+            <img id="movie-backdrop" class="AllImages" src=${imgSrc}> 
           </div>
           
           <div class="col-md-8 justify-content-start">
@@ -239,10 +257,14 @@ class MovieSection {
     const renderActors = function () {
       const container = document.getElementById('actorsContainer');
       for (let i = 0; i < 8; i++) {
+        let imgSrc = '';
+        if(actors.cast[i].profile_path === null) imgSrc = './img/defaultPortrait.jpg';
+        else imgSrc = Movie.getImage(actors.cast[i].profile_path);
+
         container.innerHTML += `
           <div class="col-6 actorList" style="cursor:pointer">
             <div>
-              <img src=${Movie.getImage(actors.cast[i].profile_path)} class="actorPicture AllImages">
+              <img src=${imgSrc} class="actorPicture AllImages">
             </div>
             <div>
               <p>${actors.cast[i].name}</p>
@@ -296,9 +318,14 @@ class MovieSection {
 
       if (length < 6) {
         for (let i = 0; i < length; i++) {
+          let imgSrc = '';
+          if(rec.recommendations[i].backdrop_path === null) imgSrc = './img/defaultHorizontal.jpg';
+          else imgSrc = Movie.getImage(rec.recommendations[i].backdrop_path);
+
           container.innerHTML += `
+            <div class="col-6 relatedMovieListener" style="cursor:pointer">
               <div>
-                <img src=${Movie.getImage(rec.recommendations[i].backdrop_path)} class="relatedImg AllImages">
+                <img src=${imgSrc} class="relatedImg AllImages">
               </div>
               <div class="col-6 relatedMovieListener" style="cursor:pointer">
               <div>
@@ -314,10 +341,15 @@ class MovieSection {
           while (chosenElement.includes(getRandom)) {
             getRandom = randomArr[Math.floor(Math.random() * randomArr.length)];
           }
+
+          let imgSrc = '';
+          if(rec.recommendations[getRandom].backdrop_path === null) imgSrc = './img/defaultHorizontal.jpg';
+          else imgSrc = Movie.getImage(rec.recommendations[getRandom].backdrop_path);
+
           container.innerHTML += `
             <div class="col-6 relatedMovieListener" style="cursor:pointer">
               <div>
-                <img src=${Movie.getImage(rec.recommendations[getRandom].backdrop_path)} class="relatedImg AllImages">
+                <img src=${imgSrc} class="relatedImg AllImages">
               </div>
               <div>
                 <span class="relatedMovie">${rec.recommendations[getRandom].title}</span>
@@ -384,11 +416,15 @@ class ActorPage {
     }
 
     // Adding actor information to the page.
+    let imgSrc = '';
+    if(actor.profile_path === null) imgSrc = './img/defaultPortrait.jpg';
+    else imgSrc = Movie.getImage(actor.profile_path);
+
     MoviePage.container.innerHTML = `
       <div class="column">
         <div class="row">
           <div class="col-md-4">
-            <img id="movie-backdrop" class="AllImages" src=${Movie.getImage(actor.profile_path)} alt=${actor.name}> 
+            <img id="movie-backdrop" class="AllImages" src=${imgSrc} alt=${actor.name}> 
           </div>
 
           <div class="col-md-8">
@@ -417,10 +453,14 @@ class ActorPage {
       const container = document.getElementById('moviesList');
       
       if (movies.cast.length > 11) for (let i = 0; i < 12; i++) {
+        let imgSrc = '';
+        if(movies.cast[i + 1].backdrop_path === null) imgSrc = './img/defaultHorizontal.jpg';
+        else imgSrc = Movie.getImage(movies.cast[i + 1].backdrop_path);
+
         container.innerHTML += `
           <div class="col-3 actorMoviesListener" style="cursor:pointer">
             <div>
-              <img class="movieImg AllImages" src=${Movie.getImage(movies.cast[i + 1].backdrop_path)} alt=${movies.title}>
+              <img class="movieImg AllImages" src=${imgSrc} alt=${movies.title}>
             </div>
             <div>
               <h4 class='actorMovie'>${movies.cast[i + 1].title}</h4>
@@ -429,10 +469,13 @@ class ActorPage {
         `;
       }
       else for (let i = 0; i < movies.cast.length; i++) {
+        let imgSrc = '';
+        if(movies.cast[i].backdrop_path === null) imgSrc = './img/defaultHorizontal.jpg';
+        else imgSrc = Movie.getImage(movies.cast[i].backdrop_path);
         container.innerHTML += `
           <div class="col-3 actorMoviesListener" style="cursor:pointer">
             <div>
-              <img class="movieImg AllImages" src=${Movie.getImage(movies.cast[i].backdrop_path)} alt=${movies.title}>
+              <img class="movieImg AllImages" src=${imgSrc} alt=${movies.title}>
             </div>
             <div>
               <h4 class='actorMovie'>${movies.cast[i].title}</h4>
