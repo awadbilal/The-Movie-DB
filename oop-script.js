@@ -133,7 +133,7 @@ class HomePage {
     const div = document.createElement('div');
     div.classList.add('row', 'justify-content-center');
 
-    actors.forEach(actor => {
+     actors.forEach(actor => {
       let imgSrc = '', windowWidth = '';
       if(actor.profile_path === null) imgSrc = './img/defaultPortrait.jpg';
       else imgSrc = Movie.getImage(actor.profile_path);
@@ -144,7 +144,7 @@ class HomePage {
 
       div.innerHTML += `
         <div class=${windowWidth} id="actorDiv" style="cursor:pointer">
-          <div>
+          <div class="actorDiv">
             <img class="actorPageImage AllImages" src=${imgSrc}>
           </div>
           <div>
@@ -156,7 +156,7 @@ class HomePage {
     this.container.append(div);
 
     const actorEventListener = function(){
-      const actorList = document.getElementById('actorDiv');
+      const actorList = document.getElementsByClassName('actorDiv');
       for(let i = 0; i < actorList.length; i++){
         actorList[i].addEventListener('click', function(){
           APIService.fetchActorInfo(actors[i].id);
