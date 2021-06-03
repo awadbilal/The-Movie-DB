@@ -508,6 +508,7 @@ class OtherPages {
   static renderContactPage (){
     this.container.innerHTML += `
       <div class="row">
+        <div class="col-12"><h1>Bilal Avvad</h1></div>
         <div class="col-4">
           <img src="https://avatars.githubusercontent.com/u/81809505?v=4" alt="Bilal Avvad" class="selfImage">
         </div>
