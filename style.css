@@ -117,4 +117,6 @@ a, #search, p, span, h2, h3, h4, h5{
 
 #movie-overview, #actorBiography {
   text-align: left;
+  padding-left: 5%;
+  padding-right: 5%;
 }
