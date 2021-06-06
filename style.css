@@ -14,6 +14,14 @@ body {
   margin-bottom: 50px;
 }
 
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
 .navbar {
   background: rgba(0, 0, 0, 0.75) !important;
 }
@@ -28,6 +36,8 @@ a, #search, p, span, h2, h3, h4, h5{
 
 .dropdown-menu {
   background: rgba(0, 0, 0, 0.75) !important;
+  overflow-y:scroll;
+  max-height:150px;
 }
 
 .navbar-toggler-icon {
@@ -117,6 +127,9 @@ a, #search, p, span, h2, h3, h4, h5{
 
 #movie-overview, #actorBiography {
   text-align: left;
-  padding-left: 5%;
-  padding-right: 5%;
+}
+
+.dropdown-item:hover {
+  background-color: #28a745;
+  border-radius: 10px;
 }

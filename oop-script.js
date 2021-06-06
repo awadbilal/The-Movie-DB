@@ -1,6 +1,6 @@
 //the API documentation site https://developers.themoviedb.org/3/
 // This is the key to use in API postman
-// console.log(atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='));
+console.log(atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='));
 
 class App {
   static async run() {
@@ -18,6 +18,14 @@ class APIService {
     const response = await fetch(url)
     const data = await response.json()
     return data.results.map(movie => new Movie(movie))
+  }
+
+  // Fetching list of movies genres with their ids;
+  static async fetchMoviesGenres() {
+    const url = APIService._constructUrl(`genre/movie/list`)
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.genres;
   }
 
   //   Fetching the list of popular actors to display: (need to make a class called Actor)
@@ -89,6 +97,7 @@ class APIService {
 // HomePage is to show list of movies / list of Actors
 class HomePage {
   static container = document.getElementById('container');
+  
   static renderMovies(movies) {
     // console.log(movies);
     const div = document.createElement("div");
@@ -133,7 +142,7 @@ class HomePage {
     const div = document.createElement('div');
     div.classList.add('row', 'justify-content-center');
 
-     actors.forEach(actor => {
+    actors.forEach(actor => {
       let imgSrc = '', windowWidth = '';
       if(actor.profile_path === null) imgSrc = './img/defaultPortrait.jpg';
       else imgSrc = Movie.getImage(actor.profile_path);
@@ -143,9 +152,9 @@ class HomePage {
       else windowWidth = 'col-12';
 
       div.innerHTML += `
-        <div class=${windowWidth} id="actorDiv" style="cursor:pointer">
-          <div class="actorDiv">
-            <img class="actorPageImage AllImages" src=${imgSrc}>
+        <div class=${windowWidth} style="cursor:pointer">
+          <div>
+            <img class="actorPageImage AllImages actorDiv" src=${imgSrc}>
           </div>
           <div>
             <h5 class="actorDivName">${actor.name}</h5>
@@ -531,6 +540,7 @@ class Movie {
     this.crew = json.crew;
     this.trailer = json.results;
     this.recommendations = json.results;
+    this.genres_ids = json.genre_ids;
   }
 
   get backdropUrl() {
@@ -548,53 +558,6 @@ class Movie {
 
 class OtherPages {
   static container = document.getElementById('container');
-  static renderContactPage (){
-    this.container.innerHTML += `
-      <div class="row">
-        <div class="col-12"><h1>Bilal Avvad</h1></div>
-        <div class="col-4">
-          <img src="https://avatars.githubusercontent.com/u/81809505?v=4" alt="Bilal Avvad" class="selfImage">
-        </div>
-        <div class="col-8 contactMe">
-          <a href="https://github.com/awadbilal" target="_blank">Github</a> <br>
-          <a href="https://www.linkedin.com/in/bilal-avvad/" target="_blank">LinkedIn</a> <br>
-          <a href="https://instagram.com/awadbilal" target="_blank">Instagram</a> <br>
-          <a href="./img/cv.pdf" target="_blank">CV</a>
-        </div>
-      </div>
-    `;
-  }
-  
-  static renderAboutPage(){
-    this.container.innerHTML = `
-      <div class="content justify-content-center">
-        <div class="aboutUs">
-          <h2>Hi there!</h2>
-          <h3>Let's talk about "The Movie DB"</h3>
-          <p>
-            The aim of this website is to allow the user to freely interact and gain information about any movie/actor wanted. With all updated database and responsive website. Your laugh brings us joy! The advantages of using this website are:
-          </p>
-        </div>
-        <div>
-          <h3> 1) Find updated newest movies:</h3>
-          <p> The website provide you with a list of movies out there, and updated at all times!. You can check related movies, movie trailer, cast, and even the producers of the movie. All with just one click away.</p>
-
-          <h3> 2) Find updated newest actors information:</h3>
-          <p> Not only we have all updated movies, also all updated actors information, if you click on any actor you will find a brief explanation about the actor, their age, date of birth, and even their movies!</p>
-
-          <h3> 3) Filter movies depending on your preference:</h3>
-          <p> Using one single button, you can filter out the movies to the preference of your choice, want some comedy movies ? just click that button and magic will happen.</p>
-
-          <h3> 4) Search movies and actors:</h3>
-          <p> Looking for a specific movie/actor ? all you need to do is type its name in the search box, and vwallah, its showcasing all matching names for you!</p>
-        </div>
-        <br>
-        <div class="aboutUs">
-          <h2> If you encountered any issue or bugs please contact us!</h2>
-        </div>
-      </div>
-    `;
-  }
 
   static renderSearchBox(data){
     // console.log(data);
@@ -653,8 +616,11 @@ const homeButton = document.getElementById('homeButton');
 const moviesButton = document.getElementById('moviesHomePage');
 const actorsButton = document.getElementById('actorsHomePage');
 const aboutButton  = document.getElementById('aboutHomePage');
+const aboutDiv = document.getElementById('about');
 const contactButton = document.getElementById('contactUsPage');
+const contactUsDiv = document.getElementById('contactUs');
 const searchButton = document.getElementById('search');
+const filterButton = document.getElementsByClassName('dropdown-item');
 
 homeButton.style.cursor = 'pointer';
 homeButton.addEventListener('click', function(){
@@ -662,31 +628,39 @@ homeButton.addEventListener('click', function(){
   actorsButton.classList.remove('active');
   aboutButton.classList.remove('active');
   document.getElementById('container').innerHTML = "";
+  aboutDiv.setAttribute('class', 'hidden');
+  contactUsDiv.setAttribute('class', 'hidden');
   App.run();
 });
 
 moviesButton.style.cursor = 'pointer';
 moviesButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  aboutDiv.setAttribute('class', 'hidden');
+  contactUsDiv.setAttribute('class', 'hidden');
   App.run();
 });
 
 actorsButton.style.cursor = 'pointer';
 actorsButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  aboutDiv.setAttribute('class', 'hidden');
+  contactUsDiv.setAttribute('class', 'hidden');
   APIService.fetchListOfActors();
 });
 
 aboutButton.style.cursor = 'pointer';
 aboutButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
-  OtherPages.renderAboutPage();
+  contactUsDiv.setAttribute('class', 'hidden');
+  aboutDiv.setAttribute('class', 'shown');
 });
 
 contactButton.style.cursor = 'pointer';
 contactButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
-  OtherPages.renderContactPage();
+  aboutDiv.setAttribute('class', 'hidden');
+  contactUsDiv.setAttribute('class', 'shown');
 });
 
 searchButton.style.cursor = 'pointer';
@@ -694,5 +668,25 @@ searchButton.addEventListener('click', function(e){
   const searchBox = document.getElementById('searchBox').value;
   document.getElementById('container').innerHTML = "";
   e.preventDefault();
+  aboutDiv.setAttribute('class', 'hidden');
+  contactUsDiv.setAttribute('class', 'hidden');
   APIService.fetchSearchedItem(searchBox);
 });
+
+// Filtering movies
+for(let i = 0; i < filterButton.length; i++){
+  filterButton[i].addEventListener('click', function(){
+    document.getElementById('container').innerHTML = "";
+    aboutDiv.setAttribute('class', 'hidden');
+    contactUsDiv.setAttribute('class', 'hidden');
+    
+    const genreMovies = async function (){ 
+      const genresList = await APIService.fetchMoviesGenres();
+      const specificGenre = genresList[i].id;
+      const allMovieList = await APIService.fetchMovies();
+
+      const result = await allMovieList.filter(movie => movie.genres_ids.includes(specificGenre));
+      HomePage.renderMovies(result);
+    }();
+  });
+}
