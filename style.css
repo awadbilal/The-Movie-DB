@@ -114,6 +114,10 @@ a, #search, p, span, h2, h3, h4, h5{
   #movie-backdrop {
     width: 70% !important;
   }
+  #container {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
 }
 
 .AllImages, .img-thumbnail {
