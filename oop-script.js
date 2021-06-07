@@ -1,10 +1,10 @@
 //the API documentation site https://developers.themoviedb.org/3/
 // This is the key to use in API postman
-console.log(atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='));
+// console.log(atob('NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='));
 
 class App {
-  static async run() {
-    const movies = await APIService.fetchMovies()
+  static async run(filter) {
+    const movies = await APIService.fetchMovies(filter)
     HomePage.renderMovies(movies);
   }
 }
@@ -12,9 +12,27 @@ class App {
 class APIService {
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
+  // Testing to generate all movies available
+  // // Fetching list of movies then sending the data to Movie Class.
+  // static async fetchMovies(filter) {
+  //   const initialFetchURL = await APIService._constructUrl(`movie/${filter}`);
+  //   const initialResponse = await fetch(initialFetchURL);
+  //   const initialData = await initialResponse.json();
+  //   // console.log(initialData);
+
+  //   const ARR_OF_MOVIES = [];
+  //   for(let i = 1; i <= await initialData.total_pages; i++){
+  //     const url = APIService._constructUrl(`movie/${filter}`) + `&page=${parseInt(i)}`;
+  //     const response = await fetch(url)
+  //     const data = await response.json()
+  //     data.results.map(movie => ARR_OF_MOVIES.push(new Movie(movie)));
+  //   }
+  //   return ARR_OF_MOVIES;
+  // }
+
   // Fetching list of movies then sending the data to Movie Class.
-  static async fetchMovies() {
-    const url = APIService._constructUrl(`movie/now_playing`)
+  static async fetchMovies(filter) {
+    const url = APIService._constructUrl(`movie/${filter}`)
     const response = await fetch(url)
     const data = await response.json()
     return data.results.map(movie => new Movie(movie))
@@ -317,7 +335,6 @@ class MovieSection {
       }
     }();
 
-    console.log(movie.producers);
     const renderProducers = function () {
       const container = document.getElementById('producers');
       for (let i = 0; i < movie.producers.length; i++) {
@@ -637,7 +654,7 @@ class OtherPages {
   }
 }
 
-document.addEventListener("DOMContentLoaded", App.run);
+document.addEventListener("DOMContentLoaded", App.run('now_playing'));
 
 const homeButton = document.getElementById('homeButton');
 const moviesButton = document.getElementById('moviesHomePage');
@@ -657,7 +674,7 @@ homeButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
-  App.run();
+  App.run('now_playing');
 });
 
 moviesButton.style.cursor = 'pointer';
@@ -665,7 +682,7 @@ moviesButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
-  App.run();
+  App.run('now_playing');
 });
 
 actorsButton.style.cursor = 'pointer';
@@ -707,13 +724,25 @@ for(let i = 0; i < filterButton.length; i++){
     aboutDiv.setAttribute('class', 'hidden');
     contactUsDiv.setAttribute('class', 'hidden');
     
-    const genreMovies = async function (){ 
-      const genresList = await APIService.fetchMoviesGenres();
-      const specificGenre = genresList[i].id;
-      const allMovieList = await APIService.fetchMovies();
+    if(i < 19) {
+      const genreMovies = async function (){ 
+        const genresList = await APIService.fetchMoviesGenres();
+        const specificGenre = genresList[i].id;
+        const allMovieList = await APIService.fetchMovies();
 
-      const result = await allMovieList.filter(movie => movie.genres_ids.includes(specificGenre));
-      HomePage.renderMovies(result);
-    }();
+        const result = await allMovieList.filter(movie => movie.genres_ids.includes(specificGenre));
+        HomePage.renderMovies(result);
+      }();
+    }
+    else {
+      const generateMovies = async function(){
+        switch(filterButton[i].textContent){
+          case 'Currently Playing': HomePage.renderMovies(await APIService.fetchMovies('now_playing')); break;
+          case 'Most Popular': HomePage.renderMovies(await APIService.fetchMovies('popular')); break;
+          case 'Top Rated': HomePage.renderMovies(await APIService.fetchMovies('top_rated')); break;
+          case 'Upcoming': HomePage.renderMovies(await APIService.fetchMovies('upcoming')); break;
+        }
+      }();
+    }
   });
 }
