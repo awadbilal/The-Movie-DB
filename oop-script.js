@@ -124,6 +124,24 @@ class HomePage {
       movieTitle.textContent = `${movie.title}`;
       titleDiv.append(movieTitle);
 
+      const addingHiddenOverState = async function() {
+        const specificMovieData = await APIService.fetchMovie(movie.id);
+        let genresList = "";
+        specificMovieData.genres.forEach(data => genresList += `${data.name} `);
+
+        const hiddenDiv = document.createElement("div");
+        hiddenDiv.classList.add('hoverOverState');
+        const hiddenContent = document.createElement("p");
+        hiddenDiv.innerHTML = `
+          <p>Language: ${movie.language}</p>
+          <p>Release Date: ${movie.releaseDate}</p>
+          <p>Rating: ${movie.rating}</p>
+          <p>Genres:</p><p>${genresList}</p>
+        `;
+        hiddenDiv.append(hiddenContent);
+        imageDiv.appendChild(hiddenDiv);
+      }();
+
       imageDiv.addEventListener("click", function () {
         Movies.run(movie);
       });
