@@ -99,9 +99,6 @@ a, #search, p, span, h2, h3, h4, h5{
   .producerImg {
     width: 60px;
   }
-  a, #search, p, span, h2, h3, h4, h5{
-    font-size: 85%;
-  }
 }
 
 @media screen and (max-width: 991px){

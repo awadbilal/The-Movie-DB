@@ -271,9 +271,9 @@ class MovieSection {
         else imgSrc = Movie.getImage(actors.cast[i].profile_path);
 
         container.innerHTML += `
-          <div class="col-6 actorList" style="cursor:pointer">
+          <div class="col-6" style="cursor:pointer">
             <div>
-              <img src=${imgSrc} class="actorPicture AllImages">
+              <img src=${imgSrc} class="actorPicture AllImages actorList">
             </div>
             <div>
               <p>${actors.cast[i].name}</p>
@@ -332,11 +332,11 @@ class MovieSection {
           else imgSrc = Movie.getImage(rec.recommendations[i].backdrop_path);
 
           container.innerHTML += `
-            <div class="col-6 relatedMovieListener" style="cursor:pointer">
+            <div class="col-6">
               <div>
-                <img src=${imgSrc} class="relatedImg AllImages">
+                <img src=${imgSrc} class="relatedImg AllImages relatedMovieListener" style="cursor:pointer">
               </div>
-              <div class="col-6 relatedMovieListener" style="cursor:pointer">
+              <div class="col-6" style="cursor:pointer">
               <div>
                 <span class="relatedMovie">${rec.recommendations[i].title}</span>
               </div>
@@ -356,9 +356,9 @@ class MovieSection {
           else imgSrc = Movie.getImage(rec.recommendations[getRandom].backdrop_path);
 
           container.innerHTML += `
-            <div class="col-6 relatedMovieListener" style="cursor:pointer">
+            <div class="col-6">
               <div>
-                <img src=${imgSrc} class="relatedImg AllImages">
+                <img src=${imgSrc} class="relatedImg AllImages relatedMovieListener" style="cursor:pointer">
               </div>
               <div>
                 <span class="relatedMovie">${rec.recommendations[getRandom].title}</span>
@@ -372,7 +372,16 @@ class MovieSection {
       // Add an event listener to go the page of the selected recommended page.
       const relatedMoviesEventListener = function () {
         const list = document.getElementsByClassName('relatedMovieListener');
-        for (let i = 0; i < 6; i++) {
+        if(list > 5) for (let i = 0; i < 6; i++) {
+          list[i].addEventListener('click', function () {
+            const movieTitle = document.getElementsByClassName('relatedMovie')[i].innerHTML;
+            for (let j = 0; j < rec.recommendations.length; j++) {
+              if (rec.recommendations[j].title == movieTitle) Movies.run(rec.recommendations[j]);
+              else continue;
+            }
+          });
+        }
+        else for (let i = 0; i < list.length; i++) {
           list[i].addEventListener('click', function () {
             const movieTitle = document.getElementsByClassName('relatedMovie')[i].innerHTML;
             for (let j = 0; j < rec.recommendations.length; j++) {
@@ -411,7 +420,7 @@ class ActorPage {
     }
     else {
       const calculateAge = function () {
-        const age = actor.birthday.split('-');
+        const age = actor.birthday.split('-');                              // Get the age of the actor
         const currentDate = new Date().getDate();                           // Get the current date value
         const currentMonth = new Date().getMonth() + 1;                     // Get the current month value
         const currentYear = new Date().getFullYear();                       // Get the current year value
@@ -467,12 +476,12 @@ class ActorPage {
         else imgSrc = Movie.getImage(movies.cast[i + 1].backdrop_path);
 
         container.innerHTML += `
-          <div class="col-3 actorMoviesListener" style="cursor:pointer">
+          <div class="col-3">
             <div>
-              <img class="movieImg AllImages" src=${imgSrc} alt=${movies.title}>
+              <img class="movieImg AllImages actorMoviesListener" style="cursor:pointer" src=${imgSrc} alt=${movies.title}>
             </div>
             <div>
-              <h4 class='actorMovie'>${movies.cast[i + 1].title}</h4>
+              <p class='actorMovie'>${movies.cast[i + 1].title}</p>
             </div>
           </div>
         `;
@@ -482,12 +491,12 @@ class ActorPage {
         if(movies.cast[i].backdrop_path === null) imgSrc = './img/defaultHorizontal.jpg';
         else imgSrc = Movie.getImage(movies.cast[i].backdrop_path);
         container.innerHTML += `
-          <div class="col-3 actorMoviesListener" style="cursor:pointer">
+          <div class="col-3">
             <div>
-              <img class="movieImg AllImages" src=${imgSrc} alt=${movies.title}>
+              <img class="movieImg AllImages actorMoviesListener" style="cursor:pointer" src=${imgSrc} alt=${movies.title}>
             </div>
             <div>
-              <h4 class='actorMovie'>${movies.cast[i].title}</h4>
+              <p class='actorMovie'>${movies.cast[i].title}</p>
             </div>
           </div>
         `;
@@ -572,9 +581,9 @@ class OtherPages {
     for(let i = 0; i < moviesActorsArr.length; i++){
       if(moviesActorsArr[i].media_type === 'movie'){
         div.innerHTML += `
-          <div class="col-3 searchDiv" style="cursor:pointer">
+          <div class="col-3 searchDiv">
             <div>
-              <img class="searchImage AllImages" src=${Movie.getImage(moviesActorsArr[i].poster_path)}>
+              <img class="searchImage AllImages" style="cursor:pointer" src=${Movie.getImage(moviesActorsArr[i].poster_path)}>
             </div>
             <div>
               <h5>${moviesActorsArr[i].title}</h5>
@@ -584,9 +593,9 @@ class OtherPages {
       }
       else {
         div.innerHTML += `
-          <div class="col-3 searchDiv" style="cursor:pointer">
+          <div class="col-3 searchDiv">
             <div>
-              <img class="searchImage AllImages" src=${Movie.getImage(moviesActorsArr[i].profile_path)}>
+              <img class="searchImage AllImages" style="cursor:pointer" src=${Movie.getImage(moviesActorsArr[i].profile_path)}>
             </div>
             <div>
               <h5>${moviesActorsArr[i].name}</h5>
