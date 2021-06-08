@@ -728,7 +728,7 @@ for(let i = 0; i < filterButton.length; i++){
       const genreMovies = async function (){ 
         const genresList = await APIService.fetchMoviesGenres();
         const specificGenre = genresList[i].id;
-        const allMovieList = await APIService.fetchMovies();
+        const allMovieList = await APIService.fetchMovies('now_playing');
 
         const result = await allMovieList.filter(movie => movie.genres_ids.includes(specificGenre));
         HomePage.renderMovies(result);
