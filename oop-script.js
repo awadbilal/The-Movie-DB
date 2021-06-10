@@ -604,11 +604,15 @@ class OtherPages {
     }
 
     for(let i = 0; i < moviesActorsArr.length; i++){
+      let imgSrc = "";
       if(moviesActorsArr[i].media_type === 'movie'){
+        if(moviesActorsArr[i].poster_path === null) imgSrc = './img/defaultPortrait.jpg';
+        else imgSrc = Movie.getImage(moviesActorsArr[i].poster_path);
+
         div.innerHTML += `
           <div class="col-3 searchDiv">
             <div>
-              <img class="searchImage AllImages" style="cursor:pointer" src=${Movie.getImage(moviesActorsArr[i].poster_path)}>
+              <img class="searchImage AllImages" style="cursor:pointer" src=${imgSrc}>
             </div>
             <div>
               <h5>${moviesActorsArr[i].title}</h5>
@@ -617,10 +621,13 @@ class OtherPages {
         `;
       }
       else {
+        if(moviesActorsArr[i].profile_path === null) imgSrc = './img/defaultPortrait.jpg';
+        else imgSrc = Movie.getImage(moviesActorsArr[i].profile_path);
+
         div.innerHTML += `
           <div class="col-3 searchDiv">
             <div>
-              <img class="searchImage AllImages" style="cursor:pointer" src=${Movie.getImage(moviesActorsArr[i].profile_path)}>
+              <img class="searchImage AllImages" style="cursor:pointer" src=${imgSrc}>
             </div>
             <div>
               <h5>${moviesActorsArr[i].name}</h5>
