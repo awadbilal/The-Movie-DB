@@ -14,6 +14,28 @@ body {
   margin-bottom: 50px;
 }
 
+.links {
+  padding-top: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links a {
+  margin-bottom: 10px;
+}
+
+.logo{
+  height: auto;
+  width: auto;
+  max-height: 50px;
+}
+
+.img-thumbnail {
+  background-color: transparent;
+}
+
 .hidden {
   display: none;
 }
@@ -86,12 +108,15 @@ a, #search, p, span, h2, h3, h4, h5{
   border-radius: 10%;
 }
 
-@media screen and (max-width: 450px){
-  .searchImage, .movieImg, .relatedImg, .actorPicture, .movie-prod-logo, .AllImages{
+@media screen and (max-width: 768px){
+  .searchImage, .movieImg, .movie-prod-logo, .AllImages{
     width: 85% !important;
   }
+  .actorPicture, .relatedImg{
+    width: 80% !important;
+  }
   .moviePageImage, .actorPageImage {
-    width: 58.5% !important;
+    width: 73% !important;
   }
   #movie-backdrop {
     width: 50% !important;
@@ -99,22 +124,45 @@ a, #search, p, span, h2, h3, h4, h5{
   .producerImg {
     width: 60px;
   }
+  a, #search, p, span, h2, h3, h4, h5{
+    padding: 0 10%;
+  }
+  .felxRow, .felxRow a{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .links {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .links a {
+    margin-bottom: 20px;
+  }
 }
 
 @media screen and (max-width: 991px){
-  .moviePageImage, .actorPageImage {
-    width: 74%;
+  .felxRow, .felxRow a{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
-  .actorPicture {
-    width: 85% !important;
-  }
-  #movie-backdrop {
-    width: 70% !important;
-  }
-  #container {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
+}
+
+.contactContainer div h4{
+  margin-bottom: 10%;
+}
+
+.contactContainer div .row{
+  margin: 0;
+  padding: 0;
 }
 
 .AllImages, .img-thumbnail {
@@ -122,7 +170,7 @@ a, #search, p, span, h2, h3, h4, h5{
   border-radius: 10% !important;
 }
 
-#actorDiv, .movieDiv {
+.actorDiv, .movieDiv, .actorImg {
   padding-bottom: 3%;
 }
 

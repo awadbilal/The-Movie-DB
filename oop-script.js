@@ -122,13 +122,8 @@ class HomePage {
     div.classList.add('row', 'justify-content-center');
     movies.forEach(movie => {
 
-      let windowWidth = '';
-      if(window.innerWidth > 991) windowWidth = 'col-3';
-      else if(window.innerWidth > 450) windowWidth = 'col-6';
-      else windowWidth = 'col-12';
-
       const movieDiv = document.createElement("div");
-      movieDiv.classList.add(windowWidth, 'movieDiv');
+      movieDiv.classList.add('movieDiv', 'col-lg-3', 'col-md-4', 'col-sm-6');
       
       const imageDiv = document.createElement("div");
       const movieImage = document.createElement("img");
@@ -179,18 +174,14 @@ class HomePage {
     div.classList.add('row', 'justify-content-center');
 
     actors.forEach(actor => {
-      let imgSrc = '', windowWidth = '';
+      let imgSrc = '';
       if(actor.profile_path === null) imgSrc = './img/defaultPortrait.jpg';
       else imgSrc = Movie.getImage(actor.profile_path);
 
-      if(window.innerWidth > 991) windowWidth = 'col-3';
-      else if(window.innerWidth > 450) windowWidth = 'col-6';
-      else windowWidth = 'col-12';
-
       div.innerHTML += `
-        <div class=${windowWidth} style="cursor:pointer">
+        <div class="col-lg-3 col-md-4 col-sm-6 actorDiv" style="cursor:pointer">
           <div>
-            <img class="actorPageImage AllImages actorDiv" src=${imgSrc}>
+            <img class="actorPageImage AllImages actorImg" src=${imgSrc}>
           </div>
           <div>
             <h5 class="actorDivName">${actor.name}</h5>
@@ -201,7 +192,7 @@ class HomePage {
     this.container.append(div);
 
     const actorEventListener = function(){
-      const actorList = document.getElementsByClassName('actorDiv');
+      const actorList = document.getElementsByClassName('actorImg');
       for(let i = 0; i < actorList.length; i++){
         actorList[i].addEventListener('click', function(){
           APIService.fetchActorInfo(actors[i].id);
@@ -256,13 +247,13 @@ class MovieSection {
 
     MoviePage.container.innerHTML = `
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-lg-4 col-md-4 col-sm-4">
             <img id="movie-backdrop" class="AllImages" src=${imgSrc}> 
           </div>
           
-          <div class="col-md-8 justify-content-start">
+          <div class="col-lg-8 col-md-8 col-sm-8 justify-content-start">
             <h2 id="movie-title">${movie.title}</h2>
             <p id="genres"> Genres: ${genres}, Language: ${movie.language}</p>
             <p id="movie-release-date">Release Date: ${movie.releaseDate}</p>
@@ -284,17 +275,16 @@ class MovieSection {
           <h3> Related Movies: </h3>
           <div id="relatedMovies" class="row justify-content-center"> </div>
         </div>
-
-        <br>
-        <div class="column">
-          <h3> Production Companies: </h3>
-          <div id="producers" class="row justify-content-center"> </div>
-        </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-4 col-sm-4">
         <h3> Cast: </h3>
         <div id="actorsContainer" class="row justify-content-center"> </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <h3> Production Companies: </h3>
+        <div id="producers" class="row justify-content-center"> </div>
       </div>
     </div>
     `;
@@ -511,7 +501,7 @@ class ActorPage {
         else imgSrc = Movie.getImage(movies.cast[i + 1].backdrop_path);
 
         container.innerHTML += `
-          <div class="col-3">
+          <div class="col-lg-3 col-md-4 col-sm-6">
             <div>
               <img class="movieImg AllImages actorMoviesListener" style="cursor:pointer" src=${imgSrc} alt=${movies.title}>
             </div>
