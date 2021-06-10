@@ -636,6 +636,7 @@ class OtherPages {
     for(let i = 0; i < searchDiv.length; i++){
       searchDiv[i].addEventListener('click', function(){
         document.getElementById('container').innerHTML = "";
+        document.getElementById('container').style.display = "block";
         console.log(moviesActorsArr[i]);
         if(moviesActorsArr[i].media_type === 'movie') Movies.run(moviesActorsArr[i]);
         else APIService.fetchActorInfo(moviesActorsArr[i].id);
@@ -662,6 +663,7 @@ homeButton.addEventListener('click', function(){
   actorsButton.classList.remove('active');
   aboutButton.classList.remove('active');
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "block";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
   App.run('now_playing');
@@ -670,6 +672,7 @@ homeButton.addEventListener('click', function(){
 moviesButton.style.cursor = 'pointer';
 moviesButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "block";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
   App.run('now_playing');
@@ -678,6 +681,7 @@ moviesButton.addEventListener('click', function(){
 actorsButton.style.cursor = 'pointer';
 actorsButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "block";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
   APIService.fetchListOfActors();
@@ -686,6 +690,7 @@ actorsButton.addEventListener('click', function(){
 aboutButton.style.cursor = 'pointer';
 aboutButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "none";
   contactUsDiv.setAttribute('class', 'hidden');
   aboutDiv.setAttribute('class', 'shown');
 });
@@ -693,6 +698,7 @@ aboutButton.addEventListener('click', function(){
 contactButton.style.cursor = 'pointer';
 contactButton.addEventListener('click', function(){
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "none";
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'shown');
 });
@@ -701,6 +707,7 @@ searchButton.style.cursor = 'pointer';
 searchButton.addEventListener('click', function(e){
   const searchBox = document.getElementById('searchBox').value;
   document.getElementById('container').innerHTML = "";
+  document.getElementById('container').style.display = "block";
   e.preventDefault();
   aboutDiv.setAttribute('class', 'hidden');
   contactUsDiv.setAttribute('class', 'hidden');
@@ -711,6 +718,7 @@ searchButton.addEventListener('click', function(e){
 for(let i = 0; i < filterButton.length; i++){
   filterButton[i].addEventListener('click', function(){
     document.getElementById('container').innerHTML = "";
+    document.getElementById('container').style.display = "block";
     aboutDiv.setAttribute('class', 'hidden');
     contactUsDiv.setAttribute('class', 'hidden');
     
