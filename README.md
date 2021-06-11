@@ -18,5 +18,5 @@ Using one single button, you can filter out the movies to the preference of your
 Looking for a specific movie/actor ? all you need to do is type its name in the search box, and vwallah, its showcasing all matching names for you!
 
 
-# If you encountered any issue or bugs please contact us!
-# Credits to _**The Movie DB (TMDB)**_ for using their API to fetch all required data!
+## If you encountered any issue or bugs please contact us!
+### Credits to _**The Movie DB (TMDB)**_ for using their API to fetch all required data!
