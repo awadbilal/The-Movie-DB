@@ -1,5 +1,19 @@
-# The-Movie-DB
-The aim of this project is to showcase my work on one of the very first JS projects while learning it
+# The Movie Database (TMDB)
+
+The movie database web application is a task given to us by our trainers at Re:Coded to test our ability to read and integrate API without any outer help and using Postman, all while coming up with a design without pre-designing the application and with certain requirements. The aim of this website is the ability to visualize any type of movies along with its full information and trailer, along with a search bar, filter by category, sorting by preference, and browsing actors list
+[Visit Website](https://imoviedba.netlify.app/)
+
+## Preview
+![The Movie Database GIF](https://github.com/awadbilal/portfolio/raw/master/src/locales/images/IMDBAGIF.gif)
+
+## Technologies Used
+
+#### HTML5 => Project with semantic coding
+#### CSS3 => Styling
+#### Media Queries => Responsive styling
+#### JavaScript => Functionalities
+
+#
 
 # Hi there!
 ## Let's talk about "The Movie DB"
